@@ -13,7 +13,7 @@ services:
       PGSERVICEFILE: /srv/etc/pg_service.conf
       PGPASSFILE: /srv/etc/pgpass.conf
     volumes:
-      - ${LIZMAP_DIR}/instances:/srv/projects
+      - ${PROJECTS_DIR}:/srv/projects
       - ${LIZMAP_DIR}/var/lizmap-theme-config:/www/lizmap/var/lizmap-theme-config
       - ${LIZMAP_DIR}/var/lizmap-config:/www/lizmap/var/config
       - ${LIZMAP_DIR}/var/lizmap-db:/www/lizmap/var/db
@@ -38,7 +38,7 @@ services:
       PGSPASSFILE: /srv/etc/pgpass.conf
       QGIS_OPTIONS_PATH: /srv/etc/qgis
     volumes:
-      - ${LIZMAP_DIR}/instances:/srv/projects
+      - ${PROJECTS_DIR}:/srv/projects
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
       - ${LIZMAP_DIR}/wps-data:/srv/data
     ports:
