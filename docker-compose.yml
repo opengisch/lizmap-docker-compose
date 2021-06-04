@@ -2,6 +2,8 @@ version: '3'
 services:
   lizmap:
     image: 3liz/lizmap-web-client:${LIZMAP_VERSION_TAG}
+    deploy:
+      replicas: 4
     environment:
       LIZMAP_CACHEREDISDB: '1'
       LIZMAP_CACHEREDISHOST: redis
@@ -27,6 +29,8 @@ services:
     restart: unless-stopped
   map:
     image: 3liz/qgis-map-server:${QGIS_VERSION_TAG}
+    deploy:
+      replicas: 4
     environment:
       QGSRV_CACHE_SIZE: '20'
       QGSRV_CACHE_ROOTDIR: /srv/projects
@@ -41,8 +45,8 @@ services:
       - ${PROJECTS_DIR}:/srv/projects
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
       - ${LIZMAP_DIR}/wps-data:/srv/data
-    ports:
-      - ${OWS_PORT}:8080
+    # ports:
+    #   - ${OWS_PORT}:8080 # not sure why this was exposed ?
     restart: unless-stopped
   redis:
     image: redis:5-alpine
