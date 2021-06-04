@@ -17,8 +17,8 @@ services:
     volumes:
       - ${LOCAL_DIR}/projects:/srv/projects
       - ${LIZMAP_DIR}/var/lizmap-theme-config:/www/lizmap/var/lizmap-theme-config
-      - ${LOCAL_DIR}/conf:/www/lizmap/var/config
-      - ${LOCAL_DIR}/db:/www/lizmap/var/db
+      - ${LOCAL_DIR}/conf/lizmapConfig.ini.php:/www/lizmap/var/config/lizmapConfig.ini.php
+      - ${LOCAL_DIR}/conf/jauth.db:/www/lizmap/var/db/jauth.db
       - ${LIZMAP_DIR}/www:/www/lizmap/www
       - ${LIZMAP_DIR}/www/var/log:/www/lizmap/var/log
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
