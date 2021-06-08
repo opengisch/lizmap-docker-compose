@@ -45,6 +45,7 @@ services:
       - ${LOCAL_DIR}/projects:/srv/projects
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
       - ${LIZMAP_DIR}/wps-data:/srv/data
+      - ./scripts/:/scripts/
     # ports:
     #   - ${OWS_PORT}:8080 # not sure why this was exposed ?
     restart: unless-stopped
