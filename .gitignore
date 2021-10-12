@@ -5,13 +5,22 @@
 
 /lizmap/www
 /lizmap/wps-data
-/lizmap/var/*
 
-!/lizmap/var/lizmap-modules
-!/lizmap/var/lizmap-my-packages
+/lizmap/var/log/nginx/
+!lizmap/var/log/nginx/.gitkeep
+
+/lizmap/var/lizmap-modules/
+!/lizmap/var/lizmap-modules/.gitkeep
+/lizmap/var/lizmap-my-packages/
+!/lizmap/var/lizmap-my-packages/.gitkeep
+
+/lizmap/var/lizmap-theme-config/
+!/lizmap/var/lizmap-theme-config/.gitkeep
 
 /lizmap/var/lizmap-modules/*
+!/lizmap/var/lizmap-modules/.gitkeep
 /lizmap/var/lizmap-my-packages/*
+!/lizmap/var/lizmap-my-packages/.gitkeep
 
 !/lizmap/var/lizmap-modules/README.md
 !/lizmap/var/lizmap-my-packages/README.md
