@@ -15,7 +15,7 @@ services:
       PGSERVICEFILE: /srv/etc/pg_service.conf
       PGPASSFILE: /srv/etc/pgpass.conf
     volumes:
-      - ${LOCAL_DIR}/projects:/io/data/
+      - ${LOCAL_DIR}/projects:/srv/projects/
       - ${LIZMAP_DIR}/var/lizmap-theme-config:/www/lizmap/var/lizmap-theme-config
       - ${LOCAL_DIR}/conf/lizmapConfig.ini.php:/www/lizmap/var/config/lizmapConfig.ini.php
       - ${LOCAL_DIR}/conf/jauth.db:/www/lizmap/var/db/jauth.db
