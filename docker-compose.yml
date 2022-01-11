@@ -2,6 +2,8 @@ version: '3'
 services:
   lizmap:
     image: 3liz/lizmap-web-client:${LIZMAP_VERSION_TAG}
+    deploy:
+      replicas: ${LIZMAP_REPLICAS}
     environment:
       LIZMAP_CACHEREDISDB: '1'
       LIZMAP_CACHEREDISHOST: redis
@@ -13,10 +15,10 @@ services:
       PGSERVICEFILE: /srv/etc/pg_service.conf
       PGPASSFILE: /srv/etc/pgpass.conf
     volumes:
-      - ${LIZMAP_DIR}/instances:/srv/projects
+      - ${LOCAL_DIR}/projects:/srv/projects/
       - ${LIZMAP_DIR}/var/lizmap-theme-config:/www/lizmap/var/lizmap-theme-config
-      - ${LIZMAP_DIR}/var/lizmap-config:/www/lizmap/var/config
-      - ${LIZMAP_DIR}/var/lizmap-db:/www/lizmap/var/db
+      - ${LOCAL_DIR}/conf/lizmapConfig.ini.php:/www/lizmap/var/config/lizmapConfig.ini.php
+      - ${LOCAL_DIR}/conf/jauth.db:/www/lizmap/var/db/jauth.db
       - ${LIZMAP_DIR}/www:/www/lizmap/www
       - ${LIZMAP_DIR}/www/var/log:/www/lizmap/var/log
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
@@ -27,6 +29,8 @@ services:
     restart: unless-stopped
   map:
     image: 3liz/qgis-map-server:${QGIS_VERSION_TAG}
+    deploy:
+      replicas: ${QGIS_REPLICAS}
     environment:
       QGSRV_CACHE_SIZE: '20'
       QGSRV_CACHE_ROOTDIR: /srv/projects
@@ -38,11 +42,12 @@ services:
       PGSPASSFILE: /srv/etc/pgpass.conf
       QGIS_OPTIONS_PATH: /srv/etc/qgis
     volumes:
-      - ${LIZMAP_DIR}/instances:/srv/projects
+      - ${LOCAL_DIR}/projects:/srv/projects
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
       - ${LIZMAP_DIR}/wps-data:/srv/data
-    ports:
-      - ${OWS_PORT}:8080
+      - ./scripts/:/scripts/
+    # ports:
+    #   - ${OWS_PORT}:8080 # not sure why this was exposed ?
     restart: unless-stopped
   redis:
     image: redis:5-alpine
@@ -50,6 +55,7 @@ services:
     image: nginx:1
     user: ${LIZMAP_USER_ID}:${LIZMAP_USER_ID}
     volumes:
+      - ${LIZMAP_DIR}/etc/ssl:/etc/nginx/ssl
       - ${LIZMAP_DIR}/etc/nginx.conf:/etc/nginx/nginx.conf
       - ${LIZMAP_DIR}/var/log/nginx:/var/log/nginx
       - ${LIZMAP_DIR}/var/nginx-cache:/var/cache/nginx
